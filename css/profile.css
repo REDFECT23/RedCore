@@ -1,53 +1,110 @@
 /* css/profile.css */
 
-#profile-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #1E1E1E;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    text-align: left; /* Выравнивание текста по левому краю внутри контейнера */
+/* Стили для контейнера страницы профиля */
+.profile-page {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-#player-info p {
-    margin-bottom: 10px;
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-#edit-profile-form {
-    margin-top: 20px;
+.profile-header h2 {
+    font-size: 2.5em;
+    color: #FFD700; /* Золотой цвет заголовка */
+    text-shadow: 0 0 10px #FFD700; /* Неоновая тень */
 }
 
-.form-group {
+/* Стили для карточки информации профиля */
+.profile-info-card {
+    margin-bottom: 20px;
+    text-align: left; /* Выравнивание текста в карточке по левому краю */
+}
+
+.profile-info-card h3,
+.edit-profile-card h3 {
+    color: #FFD700; /* Золотой цвет заголовков карточек */
+    font-size: 1.6em;
     margin-bottom: 15px;
+    text-align: center; /* Центрирование заголовков карточек */
 }
 
-.form-group label {
+.profile-info-card p {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.profile-info-card strong {
+    color: #eee; /* Более светлый цвет для меток */
+    margin-right: 5px;
+}
+
+/* Стили для карточки редактирования профиля */
+.edit-profile-card .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-profile-card .form-group label {
     display: block;
-    margin-bottom: 5px;
-    color: #FFD700;
+    margin-bottom: 8px;
+    color: #FFD700; /* Золотой цвет меток формы */
+    font-size: 1.2em;
+    text-align: left; /* Выравнивание меток формы по левому краю */
 }
 
-.form-group input[type="text"] {
+.edit-profile-card .form-group input[type="text"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #333;
-    color: white;
+    background-color: #333; /* Темный фон для полей ввода */
+    color: white; /* Белый цвет текста в полях ввода */
+    font-size: 1em;
     box-sizing: border-box; /* Важно, чтобы padding не увеличивал общую ширину */
 }
 
-#edit-profile-form button[type="submit"] {
-    background-color: #FFD700;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
+.edit-profile-card .btn {
+    display: block; /* Кнопка на всю ширину */
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto; /* Центрирование кнопки */
+    width: auto; /* Автоматическая ширина кнопки */
+    min-width: 200px; /* Минимальная ширина кнопки */
+    text-align: center; /* Центрирование текста на кнопке */
 }
 
-#edit-profile-form button[type="submit"]:hover {
-    background-color: #FFC000;
+/* Адаптивность для мобильных устройств (опционально) */
+@media (max-width: 768px) {
+    .profile-page {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .profile-header h2 {
+        font-size: 2em;
+    }
+
+    .profile-info-card h3,
+    .edit-profile-card h3 {
+        font-size: 1.4em;
+    }
+
+    .profile-info-card p {
+        font-size: 1em;
+    }
+
+    .edit-profile-card .form-group label {
+        font-size: 1.1em;
+    }
+
+    .edit-profile-card .form-group input[type="text"] {
+        font-size: 0.9em;
+    }
+
+    .edit-profile-card .btn {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
 }
