@@ -1,0 +1,7 @@
+{
+  "users": [
+    { "id": 1, "username": "Player1", "bits": 200 },
+    { "id": 2, "username": "Seller1", "bits": 1000 }
+  ],
+  "marketItems": []
+}
