@@ -71,48 +71,52 @@ function loadOfficialItems() {
 }
 
 function loadMarketItems(category = "all") {
-    let items = JSON.parse(localStorage.getItem("marketItems")) || [];
-    let marketList = document.getElementById("market-list");
-    marketList.innerHTML = "";
+    fetch('/.netlify/functions/get-market-items') // 👈 Запрос к Netlify Function для получения товаров
+        .then(response => response.json())
+        .then(items => {
+            let marketList = document.getElementById("market-list");
+            marketList.innerHTML = "";
 
-    // Проверяем и обрабатываем запросы на торг (упрощенно, для примера)
-    let currentBargainRequests = JSON.parse(localStorage.getItem('bargainRequests')) || {};
-    Object.keys(currentBargainRequests).forEach(itemId => {
-        let item = items.find(i => i.id === parseInt(itemId));
-        if (item && currentBargainRequests[itemId].status === 'approved') {
-            item.price = currentBargainRequests[itemId].finalPrice; // Обновляем цену на цену торга
-        }
-    });
+            // Проверяем и обрабатываем запросы на торг (упрощенно, для примера)
+            let currentBargainRequests = JSON.parse(localStorage.getItem('bargainRequests')) || {};
+            items.forEach(item => {
+                if (currentBargainRequests[item.id] && currentBargainRequests[item.id].status === 'approved') {
+                    item.price = currentBargainRequests[item.id].finalPrice;
+                }
+            });
 
+            items.filter(item => category === "all" || item.category === category).forEach(item => {
+                let itemDiv = document.createElement("div");
+                itemDiv.classList.add("market-item");
 
-    items.filter(item => category === "all" || item.category === category).forEach(item => {
-        let itemDiv = document.createElement("div");
-        itemDiv.classList.add("market-item");
+                let priceDisplay = `<p>Цена: <strong class="current-price">${item.price} битов</strong></p>`;
+                if (item.salePrice && Date.now() < new Date(item.saleEndTime).getTime()) {
+                    priceDisplay = `<p><span class="sale-price">${item.price} битов</span> <strong class="current-price">${item.salePrice} битов</strong> <span class="sale-timer" id="sale-timer-${item.id}"></span></p>`;
+                } else {
+                    item.salePrice = null;
+                    item.saleEndTime = null;
+                }
 
-        let priceDisplay = `<p>Цена: <strong class="current-price">${item.price} битов</strong></p>`;
-        if (item.salePrice && Date.now() < new Date(item.saleEndTime).getTime()) {
-            priceDisplay = `<p><span class="sale-price">${item.price} битов</span> <strong class="current-price">${item.salePrice} битов</strong> <span class="sale-timer" id="sale-timer-${item.id}"></span></p>`;
-        } else {
-            item.salePrice = null; // Убираем цену распродажи, если время вышло или она не задана
-            item.saleEndTime = null;
-        }
-
-
-        itemDiv.innerHTML = `
-            <div class="item-image-container">
-                <img src="${item.image}" class="item-image" alt="${item.name}">
-            </div>
-            <strong>${item.name}</strong>
-            <p>${item.description}</p>
-            ${priceDisplay}
-            <p class="seller-info">Продавец: ${item.sellerUsername}</p>
-            <button onclick="buyItem(${item.id})">Купить</button>
-            <button class="bargain-button" onclick="openBargainModal(${item.id}, '${item.name}')">Торговаться</button>
-        `;
-        marketList.appendChild(itemDiv);
-        setupImageRotation(itemDiv.querySelector('.item-image-container'));
-    });
-    startSaleTimers(); // Запускаем таймеры распродаж после загрузки товаров
+                itemDiv.innerHTML = `
+                    <div class="item-image-container">
+                        <img src="${item.image}" class="item-image" alt="${item.name}">
+                    </div>
+                    <strong>${item.name}</strong>
+                    <p>${item.description}</p>
+                    ${priceDisplay}
+                    <p class="seller-info">Продавец: ${item.sellerUsername}</p>
+                    <button onclick="buyItem(${item.id})">Купить</button>
+                    <button class="bargain-button" onclick="openBargainModal(${item.id}, '${item.name}')">Торговаться</button>
+                `;
+                marketList.appendChild(itemDiv);
+                setupImageRotation(itemDiv.querySelector('.item-image-container'));
+            });
+            startSaleTimers();
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки товаров:', error);
+            alert('Не удалось загрузить товары с сервера.');
+        });
 }
 
 
