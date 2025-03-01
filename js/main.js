@@ -1,4 +1,3 @@
-
 /* main.js */
 //Проверка наличия имени пользователя
 if (!localStorage.getItem('username')) {
