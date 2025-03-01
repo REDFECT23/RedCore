@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Неоновый Сайт</title>
+    <link rel="stylesheet" href="style.css"> <!-- Подключаем CSS файл -->
+    <link rel="stylesheet" href="animations.css"> <!-- Подключаем CSS файл для анимаций (опционально) -->
+    <link rel="stylesheet" href="neon-style.css"> <!-- Подключаем CSS файл для неонового стиля (опционально) -->
+</head>
+<body>
+    <header>
+        <div class="logo neon-text">Неон Сайт</div>
+        <nav>
+            <ul>
+                <li><a href="#" class="neon-link">Главная</a></li>
+                <li><a href="#" class="neon-link">О нас</a></li>
+                <li><a href="#" class="neon-link">Услуги</a></li>
+                <li><a href="#" class="neon-link">Портфолио</a></li>
+                <li><a href="#" class="neon-link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="music-player">
+            <audio id="backgroundMusic" loop>
+                <source src="music/background-music.mp3" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио элемент.
+            </audio>
+            <button id="playPauseButton" class="neon-button">Вкл/Выкл Музыку</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="neon-title animated-neon">Добро пожаловать в мир Неона!</h1>
+                <p class="neon-text">Погрузитесь в атмосферу света и музыки.</p>
+                <a href="#" class="neon-button animated-button">Узнать больше</a>
+            </div>
+            <div class="hero-visual">
+                <!-- Здесь можно разместить анимированное неоновое изображение или SVG -->
+                <div class="neon-shape neon-shape-1 animated-shape"></div>
+                <div class="neon-shape neon-shape-2 animated-shape"></div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="neon-section-title animated-neon">Наши Услуги</h2>
+            <div class="services-grid">
+                <div class="service-item neon-card animated-card">
+                    <i class="neon-icon icon-design"></i>
+                    <h3 class="neon-card-title">Неоновый Дизайн</h3>
+                    <p class="neon-text">Создание уникального неонового стиля для вашего бренда.</p>
+                </div>
+                <div class="service-item neon-card animated-card">
+                    <i class="neon-icon icon-animation"></i>
+                    <h3 class="neon-card-title">Анимация и Интерактив</h3>
+                    <p class="neon-text">Разработка плавных и завораживающих анимаций.</p>
+                </div>
+                <div class="service-item neon-card animated-card">
+                    <i class="neon-icon icon-music"></i>
+                    <h3 class="neon-card-title">Музыкальное Сопровождение</h3>
+                    <p class="neon-text">Подбор атмосферной музыки для вашего сайта.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section">
+            <h2 class="neon-section-title animated-neon">Наше Портфолио</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item neon-portfolio-card animated-portfolio-card">
+                    <img src="images/portfolio-1.jpg" alt="Проект 1">
+                    <div class="portfolio-overlay neon-overlay">
+                        <h3 class="neon-overlay-title">Проект 1</h3>
+                        <p class="neon-overlay-text">Краткое описание проекта.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item neon-portfolio-card animated-portfolio-card">
+                    <img src="images/portfolio-2.jpg" alt="Проект 2">
+                    <div class="portfolio-overlay neon-overlay">
+                        <h3 class="neon-overlay-title">Проект 2</h3>
+                        <p class="neon-overlay-text">Краткое описание проекта.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item neon-portfolio-card animated-portfolio-card">
+                    <img src="images/portfolio-3.jpg" alt="Проект 3">
+                    <div class="portfolio-overlay neon-overlay">
+                        <h3 class="neon-overlay-title">Проект 3</h3>
+                        <p class="neon-overlay-text">Краткое описание проекта.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2 class="neon-section-title animated-neon">Свяжитесь с нами</h2>
+            <form class="contact-form neon-form animated-form">
+                <div class="form-group">
+                    <label for="name" class="neon-label">Имя:</label>
+                    <input type="text" id="name" name="name" class="neon-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="neon-label">Email:</label>
+                    <input type="email" id="email" name="email" class="neon-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="neon-label">Сообщение:</label>
+                    <textarea id="message" name="message" rows="5" class="neon-textarea" required></textarea>
+                </div>
+                <button type="submit" class="neon-button animated-button">Отправить</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="neon-footer-text">© 2023 Неоновый Сайт. Все права защищены.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#" class="neon-footer-link">Политика конфиденциальности</a></li>
+                    <li><a href="#" class="neon-footer-link">Условия использования</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> <!-- Подключаем JavaScript файл -->
+</body>
+</html>

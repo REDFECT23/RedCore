@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маркетплейс</title>
+    <link rel="stylesheet" href="css/market.css">
+</head>
+<body>
+    <h1>Маркетплейс</h1>
+    
+    <div id="player-info">
+        <p>Баланс: <span id="bits">0</span> битов</p>
+        <p>Уровень: <span id="level">1</span> (Опыт: <span id="xp">0</span>)</p>
+    </div>
+
+    <h2>Официальные товары</h2>
+    <div id="official-items" class="market-container"></div>
+    <h2>Аукционы</h2>
+<div id="auction-list" class="market-container"></div>
+
+<h2>Выставить товар на аукцион</h2>
+<form id="auction-form">
+    <input type="text" id="auction-name" placeholder="Название" required>
+    <input type="text" id="auction-description" placeholder="Описание" required>
+    <input type="number" id="auction-start-price" placeholder="Начальная цена" required>
+    <input type="file" id="auction-image" accept="image/*">
+    <button type="submit">Выставить</button>
+</form>
+
+    <h2>Выбери категорию:</h2>
+    <select id="category-filter">
+        <option value="all">Все</option>
+        <option value="avatars">Аватары</option>
+        <option value="backgrounds">Фоны</option>
+        <option value="items">Предметы</option>
+        <option value="effects">Эффекты</option>
+    </select>
+
+    <h2>Товары игроков</h2>
+    <div id="market-list" class="market-container"></div>
+
+    <h2>Добавить товар:</h2>
+    <form id="add-item-form">
+        <input type="text" id="item-name" placeholder="Название" required>
+        <input type="text" id="item-description" placeholder="Описание" required>
+        <input type="number" id="item-price" placeholder="Цена в битах" required>
+        <input type="file" id="item-image" accept="image/*">
+        <select id="item-category">
+            <option value="avatars">Аватар</option>
+            <option value="backgrounds">Фон</option>
+            <option value="items">Предмет</option>
+            <option value="effects">Эффект</option>
+        </select>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <script src="js/market.js"></script>
+</body>
+</html>
