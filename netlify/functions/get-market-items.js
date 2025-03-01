@@ -5,12 +5,12 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 // Ваши настройки Firebase (замените на свои!)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDzE1-kq47UxnJ2F9Ss2pLBGQP-db8KQ_8",
+    authDomain: "redcore-66bbe.firebaseapp.com",
+    projectId: "redcore-66bbe",
+    storageBucket: "redcore-66bbe.firebasestorage.app",
+    messagingSenderId: "555590821941",
+    appId: "1:555590821941:web:163353b152a1638cd7297c"
 };
 
 // Инициализируем Firebase ТОЛЬКО ЕСЛИ он ещё не инициализирован.
