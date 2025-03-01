@@ -1,0 +1,53 @@
+/* css/profile.css */
+
+#profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    text-align: left; /* Выравнивание текста по левому краю внутри контейнера */
+}
+
+#player-info p {
+    margin-bottom: 10px;
+}
+
+#edit-profile-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #FFD700;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box; /* Важно, чтобы padding не увеличивал общую ширину */
+}
+
+#edit-profile-form button[type="submit"] {
+    background-color: #FFD700;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#edit-profile-form button[type="submit"]:hover {
+    background-color: #FFC000;
+}
