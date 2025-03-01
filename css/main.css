@@ -1,0 +1,619 @@
+/* main.css */
+
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: var(--font-family);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Для позиционирования анимаций */
+}
+
+/* Тёмная тема по умолчанию */
+body {
+    background: #0d0d0d;
+    color: var(--text-color, #0ff);
+}
+
+/* Светлая тема */
+body.light-theme {
+    background: #f0f0f0;
+    color: #333;
+}
+
+body.light-theme .btn {
+    color: black;
+}
+
+body.light-theme header {
+    color: black;
+}
+
+/* Анимация фона */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 400% 400%;
+    animation: gradientAnimation 20s ease infinite, fadeInBackground 1s ease-out forwards;
+    transition: background-image 0.5s ease;
+    z-index: -3; /* Позади частиц и фона */
+    opacity: 0; /* Скрываем сразу */
+}
+
+body.light-theme::before {
+    background-image: linear-gradient(45deg, #ffcc00, #ff9900, #ff6600, #ff3300, #ff0000); /* Светлая тема */
+}
+
+body.light-theme::after {
+    background-image: linear-gradient(135deg, #ff6600, #ff3300, #ff0000, #cc0000, #990000); /* Светлая тема */
+}
+
+/* Анимация для первого слоя (body::before) */
+body::before {
+    animation: gradientAnimation 30s ease infinite, fadeInBackground 1s ease-out forwards;
+    background-image: linear-gradient(45deg, #5E00C3, #7B00FF);  /* Тёмная тема */
+    opacity: 0.8;
+}
+
+/* Стили для режима низкой детализации */
+body.low-detail::before {
+    background-image: linear-gradient(45deg, #000080, #7B00FF); /* Новый градиент для LDM */
+    animation: none; /* Отключаем анимацию */
+}
+
+/* Анимация для второго слоя (body::after) */
+body::after {
+    animation: gradientAnimationReverse 40s ease infinite, fadeInBackground 1s ease-out forwards;
+    filter: blur(5px); /* Размытие для заднего слоя */
+    animation: gradientAnimationReverse 40s ease-in-out infinite; /* Более плавная анимация */
+    opacity: 0.8;
+}
+
+body.low-detail::after {
+    background-image: none; /* Убираем второй градиент для LDM */
+    filter: none;  /* Отключаем размытие */
+    animation: none; /* Отключаем анимацию */
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientAnimationReverse {
+    0% { background-position: 100% 50%; }
+    50% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInBackground {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Стили для контейнера частиц */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Над фоном, под контентом */
+    pointer-events: none; /* Частицы не должны перехватывать клики */
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.2s forwards; /* Появление с задержкой */
+}
+
+.particle {
+    position: absolute;
+    width: var(--particle-size, 8px); /* Используем CSS переменную */
+    height: var(--particle-size, 8px); /* Используем CSS переменную */
+    border-radius: 50%;
+    animation: particleAnimation linear infinite;
+    background: rgba(138, 43, 226, 0.7); /* Цвет для темной темы */
+}
+
+/* Цвет частиц для светлой темы */
+body.light-theme .particle {
+    background: rgba(255, 204, 0, 0.7);
+}
+
+@keyframes particleAnimation {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--random-x), var(--random-y));
+        opacity: 0;
+    }
+}
+/* Стили хедера */
+header {
+    background-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    /*анимированный градиент*/
+    animation: gradientAnimation 30s linear infinite; /*время анимации и другие параметры*/
+    color: black;
+    text-align: center;
+    padding: 2rem; /* Базовый padding */
+    font-size: 2.8rem; /* Базовый размер шрифта */
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: transform 0.3s ease;
+    position: relative;
+    margin-bottom: 2rem;
+    perspective: 800px;
+    perspective-origin: center;
+    overflow: hidden;
+    border-bottom: 2px solid #ff0080;
+    background-size: 400% 400%; /* Для плавного перехода */
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Адаптивные стили для хедера (мобильные устройства) */
+@media (max-width: 768px) {  /* Или другое значение ширины */
+    header {
+        font-size: 1.5rem; /* Уменьшаем размер шрифта */
+        padding: 1.5rem; /* Уменьшаем padding */
+        word-break: break-word; /* Разрешаем перенос слов */
+    }
+}
+
+header h1 {
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(45deg, #ff0080, #ffcc00);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Улучшение читаемости */
+    background-clip: text; /* Градиент только для текста */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Альтернатива color: transparent для лучшей читаемости */
+    color: transparent; /* Делаем текст прозрачным */
+    background-image: linear-gradient(45deg, #ff0080, #ffcc00);
+    /* Разноцветный текст (пример) */
+    background-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: text; /* Обрезаем фон по тексту */
+    -webkit-background-clip: text; /* Для совместимости с Safari */
+    color: transparent;
+
+}
+}
+
+
+/* Анимация вращения */
+@keyframes spinHeader {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInHeader {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили навигации */
+nav {
+    text-align: center;
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInNav 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes fadeInNav {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    background: #ffcc00;
+    color: black;
+    border-radius: 7px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #ff0080;
+    transition: width 0.3s ease-in-out;
+    z-index: 1;
+}
+
+nav ul li a:hover {
+    background: #ff0080;
+    color: white;
+    box-shadow: 0 0 12px #ff0080;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+}
+
+nav ul li a span {
+    position: relative;
+    z-index: 2;
+}
+
+/* Стили кнопки настроек (плавающая кнопка) */
+.settings-container {
+    position: fixed; /* Фиксированное положение */
+    bottom: 20px; /* Отступ снизу */
+    right: 20px; /* Отступ справа */
+    z-index: 1000; /* Высокий z-index, чтобы была поверх других элементов */
+    background: none; /* Убираем фон контейнера */
+
+}
+
+.settings-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Размер кнопки */
+    height: 60px; /* Размер кнопки */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    background: #ffcc00;
+    color: black;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Transition для анимаций */
+}
+.settings-button:hover{
+    color: white;
+}
+
+.settings-button span {
+    display: none; /* Скрываем текст внутри кнопки */
+}
+
+.settings-button i{
+    display: block;
+}
+
+.settings-container a {
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+
+}
+
+/* Анимация вращения при наведении */
+.settings-button:hover {
+    transform: rotate(90deg);
+    background: #ff0080; /* Цвет при наведении */
+
+}
+
+/* Стили секций */
+section {
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    animation-fill-mode: both;
+}
+
+section.fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+
+/* Стили карточек */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    background: #222; /* Цвет фона карточки */
+    padding: 30px;
+    border-radius: var(--button-border-radius, 15px); /* Используем CSS переменную */
+    box-shadow: 0 0 15px #ffcc00;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    width: 350px;
+}
+
+body.light-theme .card {
+    background: #ddd;
+    color: #333;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.card.show {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 30px #ff0080;
+}
+
+body.light-theme .card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили кнопок */
+.btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 16px 32px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #ffcc00;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--button-border-radius, 8px); /* Используем CSS переменную */
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out;
+    z-index: -1;
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn:hover {
+    background: #ff0080;
+    color: white;
+    box-shadow: 0 0 15px #ff0080;
+}
+
+body.light-theme .btn:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили футера */
+footer {
+    background: black;
+    color: #ffcc00;
+    text-align: center;
+    padding: 25px;
+    margin-top: auto; /* Прижимаем к низу */
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.8s forwards;
+    font-size: 1.2rem;
+}
+
+body.light-theme footer {
+    background: #333;
+    color: #eee;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    section {
+        padding: 50px 20px; /* Меньше padding на маленьких экранах */
+    }
+    .card {
+        width: 90%; /* Карточки занимают больше ширины */
+    }
+}
+
+/* Keyframes для анимаций */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Анимация карточек */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card.show {
+    animation: slideIn 0.8s ease-out forwards var(--card-index) * 0.2s; /* Добавляем задержку для каждой карточки */
+}
+
+.btn:hover {
+    animation: pulseButton 1s ease-in-out infinite alternate; /* Анимация пульсации при наведении */
+    box-shadow: 0 0 15px #ff0080;
+}
+
+@keyframes pulseButton { /* Анимация пульсации */
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+
+/* Пользовательские настройки */
+body {
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+}
+
+.card {
+    background-color: var(--background-color);
+}
+
+/* Дополнительные стили для украшения */
+.highlight {
+    color: #ff0080;
+    font-weight: bold;
+}
+
+/*Текст-приветствие*/
+.welcome-text {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite alternate;
+    animation: scaleUp 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Стили для режима низкой детализации */
+body.low-detail .particles-container {
+    display: none; /* Отключаем частицы */
+}
+
+body.low-detail::before,
+body.low-detail::after {
+    animation: none; /* Отключаем анимацию фона */
+}
+
+body.low-detail header {
+    animation: none; /* Отключаем анимацию заголовка */
+}
+
+body.low-detail nav ul {
+    animation: none; /* Отключаем анимацию навигации */
+}
+
+body.low-detail .card {
+    animation: none; /* Отключаем анимацию карточек */
+    transition: none; /* Отключаем transition */
+
+}
+
+body.low-detail .btn:hover {
+    animation: none; /* Отключаем анимацию кнопок */
+}
+
+
+
+body.low-detail .welcome-text {
+    animation: none;
+}
+
+/* Иконки */
+i {
+    margin-right: 8px;
+    font-size: 1.4rem;
+  }
