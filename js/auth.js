@@ -15,7 +15,7 @@ function login() {
     localStorage.setItem('username', username);
 
     // Перенаправляем на главную страницу
-    window.location.href = '../index.html'; // Изменен путь
+    window.location.href = 'index.html'; // Изменен путь
 }
 
 
