@@ -2,7 +2,7 @@
 /* main.js */
 //Проверка наличия имени пользователя
 if (!localStorage.getItem('username')) {
-  window.location.href = 'pages/login.html';  // Исправлен путь
+  window.location.href = 'login.html';  // Исправлен путь
 }
 
 // Получаем тему из localStorage и применяем её
