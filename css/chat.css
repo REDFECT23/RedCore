@@ -1,0 +1,159 @@
+/* chat.css */
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: #0d0d0d;
+    color: #0ff;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: var(--font-family); /* Добавлено для пользовательского шрифта */
+}
+
+/* Тёмная тема по умолчанию */
+body {
+    color: var(--text-color, #0ff);
+}
+
+body.light-theme {
+    background: #f0f0f0;
+    color: #333;
+}
+
+body.light-theme .message {
+    color: #333;
+}
+
+body.light-theme .chat-input input[type="text"] {
+    color: #333;
+}
+
+/* Стили контейнера чата */
+.chat-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: var(--chat-background-color, #222);
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ffcc00;
+    color: var(--text-color, #0ff);
+    padding: 20px;
+}
+
+/* Стили заголовка чата */
+.chat-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-header h2 {
+    font-size: 2rem;
+    color: #ffcc00;
+}
+
+body.light-theme .chat-header h2 {
+    color: #333;
+}
+
+/* Стили сообщений */
+.chat-messages {
+    height: 400px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+/* Стиль для отдельного сообщения */
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: var(--message-border-radius, 8px);
+    background: var(--message-color, #333);
+    word-break: break-word;
+    max-width: var(--chat-message-max-width, 600px);
+    text-transform: var(--message-text-transform, none);
+}
+
+/* Стили для сообщения от пользователя */
+.message.user-message {
+    text-align: right;
+    background: #444;
+}
+
+/* Стили для имени пользователя */
+.message .username {
+    font-weight: var(--username-font-weight, bold);
+    margin-right: 5px;
+    color: var(--username-color, #ffcc00);
+}
+
+/* Стили для времени сообщения */
+.message .time {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 5px;
+}
+
+/* Стили для формы отправки сообщений */
+.chat-input {
+    display: flex;
+    margin-top: 20px;
+}
+
+.chat-input input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    background: #333;
+    color: var(--text-color, #0ff);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Стили для квадратного поля ввода */
+.chat-input.square-input input[type="text"] {
+    border-radius: 0;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    border-radius: 0 5px 5px 0;
+    border: none;
+    background: #ffcc00;
+    color: black;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Квадратная кнопка поля ввода */
+.chat-input.square-input button {
+    border-radius: 0;
+}
+
+.chat-input button:hover {
+    background-color: #ff0080;
+    color: white;
+}
+
+/* Стили футера */
+footer {
+    background: black;
+    color: #ffcc00;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+body.light-theme footer {
+    background: #333;
+    color: #eee;
+}

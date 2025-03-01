@@ -1,0 +1,136 @@
+/* Проверяем подключение стилей */
+body {
+    background-color: #121212; /* Если фон изменится - стили работают */
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #FFD700;
+}
+
+/* Блок информации игрока */
+#player-info {
+    background: rgba(255, 215, 0, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Контейнер товаров */
+#market-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Карточка товара */
+.market-item {
+    background: #1E1E1E;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: left;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+}
+
+.market-item p {
+    margin: 5px 0;
+}
+
+.market-item button {
+    background: #FFD700;
+    color: black;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.market-item button:hover {
+    background: #FFC000;
+}
+
+/* Форма добавления */
+#add-item-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-item-form input, #add-item-form button {
+    margin: 5px;
+    padding: 8px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+}
+
+#add-item-form input {
+    background: #333;
+    color: white;
+}
+
+#add-item-form button {
+    background: #FFD700;
+    cursor: pointer;
+}
+
+#add-item-form button:hover {
+    background: #FFC000;
+}
+.market-item {
+    background: #1E1E1E;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+}
+
+.market-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.market-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+/* Форма добавления */
+#auction-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#auction-form input, #add-item-form button {
+    margin: 5px;
+    padding: 8px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+}
+
+#auction-form input {
+    background: #333;
+    color: white;
+}
+
+#auction-form button {
+    background: #FFD700;
+    cursor: pointer;
+}
+
+#auction-form button:hover {
+    background: #FFC000;
+}

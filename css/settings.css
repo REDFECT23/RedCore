@@ -1,0 +1,352 @@
+/* settings.css */
+
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Тёмная тема по умолчанию */
+body {
+    background: #0d0d0d;
+    color: #0ff;
+}
+
+/* Светлая тема */
+body.light-theme {
+    background: #f0f0f0;
+    color: #333;
+}
+
+body.light-theme .setting input[type="text"],
+body.light-theme .setting input[type="email"],
+body.light-theme .setting select {
+    color: #333;
+}
+
+body.light-theme header {
+    color: black;
+}
+
+/* Анимация фона */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: -2;
+    /* Базовый градиент для темной темы */
+    background-image: linear-gradient(45deg, #800080, #4b0082, #2e294e);
+}
+
+/* Градиент для светлой темы */
+body.light-theme::before {
+    background-image: linear-gradient(45deg, #ff0080, #ffcc00, #0ff);
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Стили хедера */
+header {
+    background: linear-gradient(90deg, #ff0080, #ffcc00);
+    text-align: center;
+    padding: 2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+/* Стили секции настроек */
+.settings-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #222;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ffcc00;
+    color: #0ff;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+body.light-theme .settings-container {
+    background: #fff;
+    color: #333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Вкладки */
+.tab-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background: #333;
+    border-radius: 10px 10px 0 0;
+    overflow-x: auto; /* Добавляем горизонтальную прокрутку */
+    white-space: nowrap; /* Предотвращаем перенос кнопок на новую строку */
+    -webkit-overflow-scrolling: touch; /* Для плавной прокрутки на iOS */
+    justify-content: flex-start; /* Выравниваем кнопки по левому краю */
+}
+@media (max-width: 768px) { /* Для мобильных устройств */
+
+.tab-buttons button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: #0ff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    flex-shrink: 0; /* Запрещаем кнопкам сжиматься */
+}
+
+.tab-buttons button:hover {
+    color: #ff0080;
+}
+
+.tab-buttons button.active {
+    color: white;
+    background: #ff0080;
+    border-radius: 5px;
+}
+
+/* Содержимое вкладок */
+.tab-content {
+    padding: 30px;
+}
+
+.tab-content:not(.active) {
+    display: none;
+}
+
+.setting-group {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444;
+}
+
+body.light-theme .setting-group {
+    border-bottom-color: #ccc;
+}
+
+.setting-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.setting-group h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+body.light-theme .setting-group h2 {
+    color: #333;
+}
+
+.setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.setting label {
+    font-size: 1.2rem;
+}
+
+.setting input[type="text"],
+.setting input[type="email"],
+.setting select,
+.setting input[type="color"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #333;
+    color: #0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    width: 250px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.setting input[type="text"]:focus,
+.setting input[type="email"]:focus,
+.setting select:focus,
+.setting input[type="color"]:focus {
+    outline: none;
+    box-shadow: 0 0 8px #ff0080;
+}
+
+.setting button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #ffcc00;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.setting button:hover {
+    background: #ff0080;
+    color: white;
+    box-shadow: 0 0 10px #ff0080;
+}
+
+body.light-theme .setting button {
+    background: #ccc;
+    color: #333;
+}
+
+body.light-theme .setting button:hover {
+    background: #999;
+    color: #fff;
+}
+
+
+/* Стили футера */
+footer {
+    background: black;
+    color: #ffcc00;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    animation: fadeIn 1s ease-out;
+    font-size: 1.1rem;
+}
+
+body.light-theme footer {
+    background: #333;
+    color: #f0f0f0;
+}
+
+/* Keyframes для анимаций */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Стили для переключателя темы */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #ffcc00;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #ffcc00;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Дополнительные стили для полей ввода */
+.setting input[type="number"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #333;
+    color: #0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    width: 100px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.setting input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin: 0;
+}
+
+/* Пользовательская загрузка шрифта */
+@font-face {
+    font-family: 'CustomFont';
+    src: url(var(--custom-font-path));
+}
+
+.setting input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #333;
+    color: #0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+}

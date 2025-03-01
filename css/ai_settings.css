@@ -1,0 +1,157 @@
+/* ai_settings.css */
+
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #0d0d0d;
+    color: #0ff;
+    font-family: var(--font-family);
+}
+
+/* Тёмная тема по умолчанию */
+body { color: var(--text-color, #0ff); }
+
+body.light-theme {
+    background: #f0f0f0;
+    color: #333;
+}
+
+body.light-theme .settings-container { color: #333; }
+
+body.light-theme .settings-container input,
+body.light-theme .settings-container textarea,
+body.light-theme .settings-container select {
+    color: #333;
+    background: #ddd;
+}
+
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: -2;
+    background-image: linear-gradient(45deg, #800080, #4b0082, #2e294e);
+}
+
+body.light-theme::before {
+    background-image: linear-gradient(45deg, #ff0080, #ffcc00, #0ff);
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+header {
+    background: linear-gradient(90deg, #ff0080, #ffcc00);
+    text-align: center;
+    padding: 2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    color: black;
+}
+
+
+
+.settings-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #222;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ffcc00;
+    color: #0ff;
+    padding: 20px;
+    flex: 1;
+}
+
+.settings-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settings-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.settings-container input[type="number"],
+.settings-container textarea,
+.settings-container select,
+.settings-container input[type="checkbox"] {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background: #333;
+    color: #0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.settings-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.settings-container textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.settings-container button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background: #ffcc00;
+    color: black;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.settings-container button:hover {
+    background-color: #ff0080;
+    color: white;
+}
+
+
+footer {
+    background: black;
+    color: #ffcc00;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    font-size: 1.1rem;
+}

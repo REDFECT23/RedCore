@@ -1,0 +1,106 @@
+/* auth.css (стили для login.html и register.html) */
+
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: #0d0d0d;
+    color: #0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Контейнер формы */
+.login-container,  /* Добавлено для register.html */
+.register-container { /* Добавлено для register.html */
+    background: #222;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ffcc00;
+    text-align: center;
+    width: 400px;
+    max-width: 90%;
+}
+
+/* Заголовок */
+h2 {
+    color: #ffcc00;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+/* Поля ввода */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: none;
+    background: #333;
+    color: #0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.form-group input:focus {
+    box-shadow: 0 0 8px #ff0080;
+}
+
+/* Кнопка */
+button {
+    padding: 14px 28px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #ffcc00;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #ff0080;
+    color: white;
+    box-shadow: 0 0 10px #ff0080;
+}
+
+/* Ссылки */
+a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #ff0080;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: #ff0080;
+    margin-top: 10px;
+}
