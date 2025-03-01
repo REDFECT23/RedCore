@@ -1,6 +1,6 @@
 /* ai.js */
-const API_KEY_GEMINI = "AIzaSyBVP-lasBg-MDZ8NIljGjJPsGcN7WTIotM";
-const API_KEY_DEEPSEEK = "sk-e44f21c886274f75a94e5b14e5059481";
+const API_KEY_GEMINI = "нету";
+const API_KEY_DEEPSEEK = "а вот не скажу";
 
 const aiMessages = document.getElementById('ai-messages');
 const promptInput = document.getElementById('prompt-input');
