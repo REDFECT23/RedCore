@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCore - Квесты</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="../css/quests.css">
+</head>
+<body>
+
+<div class="particles-container"></div>
+<div class="settings-container">
+    <a href="settings.html"><span class="settings-button">настройки</span></a>
+</div>
+
+<header>
+    RedCore - Квесты
+</header>
+
+<nav>
+    <ul>
+        <li><a href="../index.html"><span>Главная</span></a></li>  <!-- Измененный путь -->
+        <li><a href="#"><span>Квесты</span></a></li>  <!-- Измененный путь -->
+    </ul>
+</nav>
+
+<section id="quests">
+    <h2>Ежедневные Квесты</h2>
+    <p class="welcome-text">Выполняйте задания и получайте награды каждый день!</p>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="quest-progress">0%</div>
+    </div>
+    <div class="cards" id="daily-quests-container"></div>
+</section>
+
+<footer>
+    © 2025 RedCore. Все права защищены.
+</footer>
+
+<script src="../js/quests.js"></script>
+</body>
+</html>

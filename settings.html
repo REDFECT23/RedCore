@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки - RedCore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/settings.css">  <!-- Подключение CSS -->
+</head>
+<body>
+
+<header>
+    Настройки
+</header>
+
+<div class="settings-container">
+    <div class="tab-buttons">
+        <button class="tab-button active" onclick="openTab('profile')">Профиль</button>
+        <button class="tab-button" onclick="openTab('appearance')">Внешний вид</button>
+        <button class="tab-button" onclick="openTab('chat')">Чат</button>
+        <button class="tab-button" onclick="openTab('notifications')">Уведомления</button>
+        <button class="tab-button" onclick="openTab('security')">Безопасность</button>
+    </div>
+
+    <div id="profile" class="tab-content active">
+        <div class="setting-group">
+            <h2>Профиль</h2>
+            <div class="setting">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" value="User123">
+            </div>
+            <div class="setting">
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="user@example.com">
+            </div>
+            <div class="setting">
+                <button>Сохранить изменения</button>
+            </div>
+            <div class="setting">
+                <button onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appearance" class="tab-content">
+        <div class="setting-group">
+            <h2>Внешний вид</h2>
+
+            <div class="setting">
+                <label for="theme">Тема:</label>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox"/>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label for="text-color">Цвет текста:</label>
+                <input type="color" id="text-color" value="#0ff">
+            </div>
+
+            <div class="setting">
+                <label for="background-color">Цвет фона карточек:</label>
+                <input type="color" id="background-color" value="#222">
+            </div>
+
+            <div class="setting">
+                <label for="font-family">Шрифт:</label>
+                <select id="font-family">
+                    <option value="'Orbitron', sans-serif">Orbitron</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="CustomFont">Загрузить свой шрифт</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="custom-font-file">Загрузить свой шрифт (TTF/OTF):</label>
+                <input type="file" id="custom-font-file" accept=".ttf,.otf">
+            </div>
+
+            <div class="setting">
+                <label for="font-size">Размер шрифта:</label>
+                <input type="number" id="font-size" value="1.1" min="0.8" max="1.5" step="0.1">
+            </div>
+
+            <div class="setting">
+                <label>Форма кнопок:</label>
+                <div>
+                    <label><input type="radio" name="button-shape" value="rounded" checked> Скругленные</label><br>
+                    <label><input type="radio" name="button-shape" value="square"> Квадратные</label>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label for="animations-enabled">Анимации:</label>
+                <input type="checkbox" id="animations-enabled" checked>
+            </div>
+
+            <div class="setting">
+                <label for="particle-size">Размер частиц:</label>
+                <input type="number" id="particle-size" value="8" min="4" max="12">
+            </div>
+
+            <div class="setting">
+                <label for="particle-count">Количество частиц:</label>
+                <input type="number" id="particle-count" value="50" min="20" max="100">
+            </div>
+        </div>
+    </div>
+    
+          <div class="setting">
+          <label for="low-detail-mode">Режим низкой детализации:</label>
+          <input type="checkbox" id="low-detail-mode">
+      </div>
+  </div>
+</div>
+
+    <div id="chat" class="tab-content">
+        <div class="setting-group">
+            <h2>Настройки чата</h2>
+
+            <div class="setting">
+                <label for="message-color">Цвет сообщений:</label>
+                <input type="color" id="message-color" value="#333">
+            </div>
+
+           <div class="setting">
+               <label for="username-color">Цвет имени пользователя:</label>
+               <input type="color" id="username-color" value="#ffcc00">
+           </div>
+
+            <div class="setting">
+                <label for="chat-font-size">Размер шрифта чата:</label>
+                <input type="number" id="chat-font-size" value="1" min="0.8" max="1.5" step="0.1">
+            </div>
+
+            <div class="setting">
+                <label for="chat-background-color">Цвет фона чата:</label>
+                <input type="color" id="chat-background-color" value="#222">
+            </div>
+
+            <div class="setting">
+                <label for="chat-message-max-width">Макс. ширина сообщения:</label>
+                <input type="number" id="chat-message-max-width" value="600" min="400" max="800">
+            </div>
+
+            <div class="setting">
+                <label for="chat-input-style">Стиль поля ввода:</label>
+                <select id="chat-input-style">
+                    <option value="rounded">Скругленное</option>
+                    <option value="square">Прямоугольное</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="show-chat-time">Отображать время сообщения:</label>
+                <input type="checkbox" id="show-chat-time">
+            </div>
+
+            <div class="setting">
+                <label for="time-format">Формат времени:</label>
+                <select id="time-format">
+                    <option value="12">12-часовой</option>
+                    <option value="24">24-часовой</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="message-border-radius">Радиус границ сообщений:</label>
+                <input type="number" id="message-border-radius" value="8" min="0" max="20">
+            </div>
+
+            <div class="setting">
+                <label for="username-font-weight">Толщина шрифта имени:</label>
+                <select id="username-font-weight">
+                    <option value="normal">Нормальный</option>
+                    <option value="bold">Жирный</option>
+                    <option value="lighter">Тонкий</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="max-messages-displayed">Макс. кол-во сообщений:</label>
+                <input type="number" id="max-messages-displayed" value="50" min="20" max="200">
+            </div>
+
+            <div class="setting">
+                <label for="message-text-transform">Трансформация текста сообщения:</label>
+                <select id="message-text-transform">
+                    <option value="none">Без трансформации</option>
+                    <option value="uppercase">Заглавные</option>
+                    <option value="lowercase">Строчные</option>
+                    <option value="capitalize">Капитализировать</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="enable-emojis">Использовать эмодзи:</label>
+                <input type="checkbox" id="enable-emojis" checked>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="notifications" class="tab-content">
+        <div class="setting-group">
+            <h2>Уведомления</h2>
+            <div class="setting">
+                <label for="email-notifications">Email уведомления:</label>
+                <input type="checkbox" id="email-notifications">
+            </div>
+            <div class="setting">
+                <label for="push-notifications">Push уведомления:</label>
+                <input type="checkbox" id="push-notifications">
+            </div>
+        </div>
+    </div>
+
+    <div id="security" class="tab-content">
+        <div class="setting-group">
+            <h2>Безопасность</h2>
+            <div class="setting">
+                <label for="change-password">Изменить пароль:</label>
+                <button id="change-password">Изменить пароль</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting">
+        <button onclick="applySettings()">Применить настройки</button>
+    </div>
+</div>
+
+<footer>
+    © 2025 Pocket Code Database. Все права защищены.
+</footer>
+
+<script src="../js/settings.js"></script>
+
+</body>
+</html>

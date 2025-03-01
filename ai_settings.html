@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCore - Настройки ИИ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/ai_settings.css">
+</head>
+<body>
+
+<header>
+    Настройки ИИ Gemini
+</header>
+
+<div class="settings-container">
+    <h2>Настройки ИИ Gemini</h2>
+
+    <label for="ai-provider">Выбор ИИ:</label>
+    <select id="ai-provider">
+        <option value="gemini">Gemini</option>
+        <option value="deepseek">DeepSeek</option>
+    </select>
+
+    <label for="model-select">Модель:</label>
+    <select id="model-select">
+        <option value="gemini-1.0-pro">Gemini 1.0 Pro</option>
+        <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+        <option value="gemini-1.0-ultra">Gemini 1.0 Ultra (В разработке)</option>
+    </select>
+
+    <label for="temperature">Температура:</label>
+    <input type="number" id="temperature" min="0" max="1" step="0.1">
+
+    <label for="top-p">Top P:</label>
+    <input type="number" id="top-p" min="0" max="1" step="0.01">
+
+    <label for="top-k">Top K:</label>
+    <input type="number" id="top-k" min="1" max="40" step="1">
+
+    <label for="max-output-tokens">Макс. кол-во токенов:</label>
+    <input type="number" id="max-output-tokens" min="1" max="2048" step="1">
+
+    <label for="presence-penalty">Presence Penalty:</label>
+    <input type="number" id="presence-penalty" min="-2" max="2" step="0.1">
+
+    <label for="frequency-penalty">Frequency Penalty:</label>
+    <input type="number" id="frequency-penalty" min="-2" max="2" step="0.1">
+
+    <label for="stop-sequences">Stop Sequences (Разделяйте запятыми):</label>
+    <input type="text" id="stop-sequences">
+
+    <label for="system-prompt">Системный промпт:</label>
+    <textarea id="system-prompt"></textarea>
+
+    <label for="image-generation">Разрешить генерацию изображений:</label>
+    <input type="checkbox" id="image-generation">
+
+    <label for="code-execution">Разрешить выполнение кода:</label>
+    <input type="checkbox" id="code-execution">
+
+    <label for="enable-web-search">Включить веб-поиск:</label>
+    <input type="checkbox" id="enable-web-search">
+
+    <label for="max-web-results">Макс. результатов веб-поиска:</label>
+    <input type="number" id="max-web-results" min="1" max="10" step="1">
+
+    <label for="api-call-budget">Бюджет на вызовы API ($):</label>
+    <input type="number" id="api-call-budget" min="0" step="0.01">
+
+    <label for="tone-style">Стиль ответа:</label>
+    <select id="tone-style">
+        <option value="neutral">Нейтральный</option>
+        <option value="professional">Профессиональный</option>
+        <option value="witty">Остроумный</option>
+        <option value="poetic">Поэтичный</option>
+        <option value="sarcastic">Саркастичный</option>
+    </select>
+
+    <button onclick="saveSettings()">Сохранить настройки</button>
+</div>
+
+<footer>
+    © 2025 RedCore. Все права защищены.
+</footer>
+
+<script src="../js/ai_settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedCore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="particles-container"></div>
+
+<div class="settings-container">
+    <a href="settings.html">
+        <div class="settings-button"><i class="fas fa-cog"></i></div>
+    </a>
+</div>
+
+<header id="mainHeader">
+  <h1 data-text="RedCore">RedCore</h1> </header>
+
+<section id="about">
+    <h2>О проекте</h2>
+    <p class="welcome-text">Добро пожаловать на <span class="highlight">RedCore</span>! Платформу, где веселье
+        никогда не заканчивается.</p>
+</section>
+
+<section id="services">
+    <h2>Функции</h2>
+    <div class="cards">
+
+        <div class="card">
+            <h3><i class="fas fa-tasks"></i>Квесты</h3>
+            <p>Выполняйте ежедневные задания и получайте крутые награды!</p>
+            <a href="quests.html" class="btn"><span>Посмотреть квесты</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-search"></i>Поиск проектов</h3>
+            <p>Мгновенный поиск игр по названию, автору, тегам и другим параметрам. Находите нужные игры на
+                Pocket Code (и не только) за считанные секунды!</p>
+            <button class="btn" onclick="alert('Функция поиска!')"><span>Подробнее</span></button>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-comments"></i>Чат</h3>
+            <p>Общайтесь с другими пользователями RedCore в режиме реального времени. Задавайте вопросы, делитесь
+                опытом и находите новых друзей!</p>
+            <a href="chat.html" class="btn"><span>Войти в чат</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-brain"></i>ИИ Gemini</h3>
+            <p>Задавайте любые вопросы и получайте ответы от мощного ИИ Gemini! Настройте ИИ как вам нужно!</p>
+            <a href="ai.html" class="btn"><span>Задать вопрос</span></a>
+            <a href="ai_settings.html" class="btn"><span>Настройки ИИ</span></a>
+        </div>
+
+        <div class="card">
+            <h3><i class="fas fa-cogs"></i>Управление проектами</h3>
+            <p>Редактирование, удаление, копирование и экспорт ваших проектов. Полный контроль над вашими
+                данными и удобная организация.</p>
+            <button class="btn" onclick="alert('Функция управления!')"><span>Подробнее</span></button>
+        </div>
+
+    </div>
+</section>
+
+<section id="contact">
+    <h2><i class="fab fa-telegram"></i>Наш ТГ Канал</h2>
+    <p>Не забудьте подписаться на наш канал!</p>
+    <button class="btn" onclick="alert('FNAFIK!')"><span>FNAFIK</span></button>
+</section>
+
+<footer>
+    © 2025 RedCore. Все права защищены.
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/particles.js"></script>
+
+</body>
+</html>
