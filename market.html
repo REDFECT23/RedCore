@@ -8,25 +8,44 @@
 </head>
 <body>
     <h1>Маркетплейс</h1>
-    
+
     <div id="player-info">
+        <p>Игрок: <span id="username"></span> <button id="change-username">Сменить имя</button></p>
         <p>Баланс: <span id="bits">0</span> битов</p>
         <p>Уровень: <span id="level">1</span> (Опыт: <span id="xp">0</span>)</p>
+        <p>Инвентарь: <button id="open-inventory">Открыть инвентарь</button></p>
+    </div>
+
+    <div id="inventory-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-inventory">×</span>
+            <h2>Инвентарь</h2>
+            <div id="inventory-items" class="market-container"></div>
+        </div>
     </div>
 
     <h2>Официальные товары</h2>
     <div id="official-items" class="market-container"></div>
-    <h2>Аукционы</h2>
-<div id="auction-list" class="market-container"></div>
 
-<h2>Выставить товар на аукцион</h2>
-<form id="auction-form">
-    <input type="text" id="auction-name" placeholder="Название" required>
-    <input type="text" id="auction-description" placeholder="Описание" required>
-    <input type="number" id="auction-start-price" placeholder="Начальная цена" required>
-    <input type="file" id="auction-image" accept="image/*">
-    <button type="submit">Выставить</button>
-</form>
+    <h2>Аукционы <button id="create-auction-button">Выставить товар на аукцион</button></h2>
+    <div id="auction-list" class="market-container"></div>
+
+    <div id="auction-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-auction-form">×</span>
+            <h2>Выставить товар на аукцион</h2>
+            <form id="auction-form">
+                <input type="text" id="auction-name" placeholder="Название" required>
+                <textarea id="auction-description" placeholder="Описание" required></textarea>
+                <input type="number" id="auction-start-price" placeholder="Начальная цена" required>
+                <input type="number" id="auction-duration" placeholder="Длительность (в часах, 1-24)" min="1" max="24" value="24" required>
+                <input type="number" id="auction-bid-increment" placeholder="Мин. шаг ставки" value="1" required>
+                <input type="file" id="auction-image" accept="image/*" required>
+                <button type="submit">Выставить на аукцион</button>
+            </form>
+        </div>
+    </div>
+
 
     <h2>Выбери категорию:</h2>
     <select id="category-filter">
@@ -37,23 +56,55 @@
         <option value="effects">Эффекты</option>
     </select>
 
-    <h2>Товары игроков</h2>
+    <h2>Товары игроков <button id="add-item-button">Добавить товар на продажу</button></h2>
     <div id="market-list" class="market-container"></div>
 
-    <h2>Добавить товар:</h2>
-    <form id="add-item-form">
-        <input type="text" id="item-name" placeholder="Название" required>
-        <input type="text" id="item-description" placeholder="Описание" required>
-        <input type="number" id="item-price" placeholder="Цена в битах" required>
-        <input type="file" id="item-image" accept="image/*">
-        <select id="item-category">
-            <option value="avatars">Аватар</option>
-            <option value="backgrounds">Фон</option>
-            <option value="items">Предмет</option>
-            <option value="effects">Эффект</option>
-        </select>
-        <button type="submit">Добавить</button>
-    </form>
+    <div id="add-item-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-item-form">×</span>
+            <h2>Добавить товар на продажу</h2>
+            <form id="add-item-form">
+                <input type="text" id="item-name" placeholder="Название" required>
+                <textarea id="item-description" placeholder="Описание" required></textarea>
+                <input type="number" id="item-price" placeholder="Цена в битах" required>
+                <label for="sale-price">Цена распродажи (необязательно):</label>
+                <input type="number" id="sale-price" placeholder="Цена распродажи">
+                <label for="sale-duration">Длительность распродажи (в часах, необязательно):</label>
+                <input type="number" id="sale-duration" placeholder="Длительность" min="1" max="24">
+                <input type="file" id="item-image" accept="image/*" required>
+                <select id="item-category">
+                    <option value="avatars">Аватар</option>
+                    <option value="backgrounds">Фон</option>
+                    <option value="items">Предмет</option>
+                    <option value="effects">Эффект</option>
+                </select>
+                <button type="submit">Добавить товар</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-cart">×</span>
+            <h2>Корзина</h2>
+            <div id="cart-items" class="market-container"></div>
+            <p id="cart-total">Итого: <span id="cart-total-price">0</span> битов</p>
+            <button id="checkout-button">Оформить заказ</button>
+        </div>
+    </div>
+
+    <div id="bargain-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-bargain-form">×</span>
+            <h2>Предложить торг</h2>
+            <p id="bargain-item-name"></p>
+            <input type="number" id="bargain-discount" placeholder="Процент скидки (0-99)" min="0" max="99" required>
+            <button id="send-bargain-button">Отправить предложение</button>
+        </div>
+    </div>
+
+    <button id="open-cart-button">Корзина (<span id="cart-item-count">0</span>)</button>
+
 
     <script src="js/market.js"></script>
 </body>
