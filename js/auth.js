@@ -15,7 +15,7 @@ function login() {
     localStorage.setItem('username', username);
 
     // Перенаправляем на главную страницу
-    window.location.href = 'RedCore/index.html'; // Изменен путь
+    window.location.href = 'index.html'; // Изменен путь
 }
 
 
@@ -41,5 +41,5 @@ function register() {
     localStorage.setItem('username', username);
 
     // Перенаправляем на главную страницу
-    window.location.href = 'RedCore/index.html';  // Изменен путь
+    window.location.href = 'index.html';  // Изменен путь
   }
