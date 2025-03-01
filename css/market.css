@@ -1,16 +1,18 @@
-/* Проверяем подключение стилей */
+/* Общие стили (остаются без изменений) */
 body {
-    background-color: #121212; /* Если фон изменится - стили работают */
+    background-color: #121212;
     color: white;
     text-align: center;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding-bottom: 50px;
 }
 
 h1, h2 {
     color: #FFD700;
 }
 
-/* Блок информации игрока */
+/* Блок информации игрока (немного изменен) */
 #player-info {
     background: rgba(255, 215, 0, 0.2);
     padding: 10px;
@@ -19,71 +21,32 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-/* Контейнер товаров */
-#market-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* Карточка товара */
-.market-item {
-    background: #1E1E1E;
-    padding: 15px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: left;
-    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
-}
-
-.market-item p {
-    margin: 5px 0;
-}
-
-.market-item button {
+#player-info button, #create-auction-button, #add-item-button, #open-cart-button, #open-inventory {
     background: #FFD700;
     color: black;
     border: none;
-    padding: 8px;
+    padding: 8px 15px;
     cursor: pointer;
-    width: 100%;
     border-radius: 5px;
+    font-size: 1em;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
-.market-item button:hover {
+#player-info button:hover, #create-auction-button:hover, #add-item-button:hover, #open-cart-button:hover, #open-inventory:hover {
     background: #FFC000;
 }
 
-/* Форма добавления */
-#add-item-form {
-    margin-top: 20px;
+
+/* Контейнер товаров (без изменений) */
+.market-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-#add-item-form input, #add-item-form button {
-    margin: 5px;
-    padding: 8px;
-    width: 200px;
-    border: none;
-    border-radius: 5px;
-}
-
-#add-item-form input {
-    background: #333;
-    color: white;
-}
-
-#add-item-form button {
-    background: #FFD700;
-    cursor: pointer;
-}
-
-#add-item-form button:hover {
-    background: #FFC000;
-}
+/* Карточка товара (немного изменен) */
 .market-item {
     background: #1E1E1E;
     padding: 15px;
@@ -91,46 +54,251 @@ h1, h2 {
     width: 200px;
     text-align: center;
     box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+    display: flex;
+    flex-direction: column;
 }
 
-.market-item img {
+/* Контейнер для 3D вращения изображения (без изменений) */
+.item-image-container {
+    position: relative;
     width: 100%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
+    overflow: hidden;
+    perspective: 500px;
+    cursor: grab;
 }
-.market-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+
+.item-image-container:active {
+    cursor: grabbing;
 }
-/* Форма добавления */
-#auction-form {
+
+.market-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    max-height: 150px;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+
+.market-item p {
+    margin: 5px 0;
+    text-align: left;
+}
+
+.market-item strong {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.market-item button, .market-item .bargain-button { /* Стилизуем кнопку "Торговаться" */
+    background: #FFD700;
+    color: black;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: auto;
+    margin-bottom: 5px; /* Добавляем отступ снизу для разделения кнопок */
+}
+
+.market-item button:hover, .market-item .bargain-button:hover {
+    background: #FFC000;
+}
+
+.market-item .sale-price { /* Стили для цены распродажи */
+    color: red;
+    font-weight: bold;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+
+.market-item .current-price { /* Стили для текущей цены (или цены распродажи) */
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.market-item .sale-timer { /* Стили для таймера распродажи */
+    font-size: 0.9em;
+    color: orange;
+    margin-top: 5px;
+}
+
+/* Стили для модальных окон (без изменений) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    background-color: #1E1E1E;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Формы в модальных окнах (без изменений) */
+#add-item-form, #auction-form {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#auction-form input, #add-item-form button {
+#add-item-form input, #add-item-form textarea, #add-item-form select,
+#auction-form input, #auction-form textarea, #auction-form select{
     margin: 5px;
     padding: 8px;
-    width: 200px;
+    width: 300px;
     border: none;
     border-radius: 5px;
-}
-
-#auction-form input {
     background: #333;
     color: white;
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
-#auction-form button {
+#add-item-form textarea, #auction-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+
+#add-item-form button, #auction-form button {
     background: #FFD700;
     cursor: pointer;
+    width: 300px;
+    margin: 10px 0;
+    padding: 10px;
 }
 
-#auction-form button:hover {
+#add-item-form button:hover, #auction-form button:hover {
     background: #FFC000;
+}
+
+/* Стили для корзины (без изменений) */
+#cart-modal .modal-content {
+    width: 90%;
+    max-width: 700px;
+}
+
+#cart-items .market-item {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+#cart-items .market-item img {
+    max-width: 100px;
+    max-height: none;
+    margin-right: 15px;
+    margin-bottom: 0;
+}
+
+#cart-items .market-item p, #cart-items .market-item strong {
+    text-align: left;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#cart-items .market-item button {
+    width: auto;
+    margin-top: 0;
+    margin-left: auto;
+}
+
+#cart-total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+#checkout-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+#checkout-button:hover {
+    background: #45a049;
+}
+
+#open-cart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+}
+
+/* Стили для модального окна торга */
+#bargain-modal .modal-content {
+    width: 90%;
+    max-width: 400px; /* Меньшая ширина для окна торга */
+    text-align: center;
+}
+
+#bargain-discount {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    box-sizing: border-box;
+}
+
+#send-bargain-button {
+    background: #FFD700;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#bargain-modal p {
+    margin-bottom: 15px;
 }
