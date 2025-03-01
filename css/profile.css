@@ -1,9 +1,23 @@
 /* css/profile.css */
 
+/* Импорт шрифта Orbitron (если main.css его не подтягивает) */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* Используем переменные CSS для темы, чтобы соответствовать main.css */
+body {
+    --text-color: #0ff; /* Цвет текста по умолчанию (темная тема) */
+    --background-color: #222; /* Цвет фона карточек по умолчанию (темная тема) */
+    --button-border-radius: 8px; /* Радиус скругления кнопок по умолчанию */
+    font-family: var(--font-family, 'Orbitron', sans-serif); /* Используем переменную или Orbitron по умолчанию */
+    color: var(--text-color); /* Цвет текста из переменной */
+}
+
 /* Стили для контейнера страницы профиля */
-.profile-page {
+.profile-page.settings-container { /* Стилизуем settings-container, когда он profile-page */
     padding-top: 30px;
     padding-bottom: 30px;
+    background: #1E1E1E; /* Более темный фон для контейнера профиля */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); /* Более мягкая тень */
 }
 
 .profile-header {
@@ -14,13 +28,16 @@
 .profile-header h2 {
     font-size: 2.5em;
     color: #FFD700; /* Золотой цвет заголовка */
-    text-shadow: 0 0 10px #FFD700; /* Неоновая тень */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Неоновая тень */
 }
 
 /* Стили для карточки информации профиля */
-.profile-info-card {
+.profile-info-card.card { /* Применяем стили к .card, когда он profile-info-card */
     margin-bottom: 20px;
     text-align: left; /* Выравнивание текста в карточке по левому краю */
+    background-color: var(--background-color); /* Используем переменную для фона карточек */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Мягкая тень для карточек */
+    color: var(--text-color); /* Цвет текста из переменной */
 }
 
 .profile-info-card h3,
@@ -42,6 +59,13 @@
 }
 
 /* Стили для карточки редактирования профиля */
+.edit-profile-card.card { /* Применяем стили к .card, когда он edit-profile-card */
+    background-color: var(--background-color); /* Используем переменную для фона карточек */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Мягкая тень для карточек */
+    color: var(--text-color); /* Цвет текста из переменной */
+}
+
+
 .edit-profile-card .form-group {
     margin-bottom: 20px;
 }
@@ -58,14 +82,15 @@
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--button-border-radius); /* Используем переменную для скругления */
     background-color: #333; /* Темный фон для полей ввода */
     color: white; /* Белый цвет текста в полях ввода */
     font-size: 1em;
     box-sizing: border-box; /* Важно, чтобы padding не увеличивал общую ширину */
+    font-family: inherit; /* Наследуем шрифт от body */
 }
 
-.edit-profile-card .btn {
+.edit-profile-card .btn { /* Стилизуем кнопку .btn внутри edit-profile-card */
     display: block; /* Кнопка на всю ширину */
     margin-top: 20px;
     margin-left: auto;
@@ -73,11 +98,21 @@
     width: auto; /* Автоматическая ширина кнопки */
     min-width: 200px; /* Минимальная ширина кнопки */
     text-align: center; /* Центрирование текста на кнопке */
+    border-radius: var(--button-border-radius); /* Используем переменную для скругления */
+    background-color: #FFD700; /* Золотой цвет кнопки */
+    color: black; /* Черный цвет текста кнопки */
+    font-weight: bold; /* Жирный шрифт для кнопки */
+    text-transform: uppercase; /* Верхний регистр для текста кнопки */
+    transition: background-color 0.3s ease; /* Плавная анимация фона кнопки */
+}
+
+.edit-profile-card .btn:hover {
+    background-color: #FFC000; /* Более светлый золотой цвет при наведении */
 }
 
 /* Адаптивность для мобильных устройств (опционально) */
 @media (max-width: 768px) {
-    .profile-page {
+    .profile-page.settings-container { /* Адаптивность для контейнера на моб. */
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -103,7 +138,7 @@
         font-size: 0.9em;
     }
 
-    .edit-profile-card .btn {
+    .edit-profile-card .btn { /* Адаптивность для кнопки на моб. */
         font-size: 1em;
         padding: 8px 16px;
     }
