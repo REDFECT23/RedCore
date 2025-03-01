@@ -106,7 +106,7 @@ function loadMarketItems(category = "all") {
             <p>${item.description}</p>
             ${priceDisplay}
             <p class="seller-info">Продавец: ${item.sellerUsername}</p>
-            <button onclick="addToCart(${item.id})">В корзину</button>
+            <button onclick="buyItem(${item.id})">Купить</button>
             <button class="bargain-button" onclick="openBargainModal(${item.id}, '${item.name}')">Торговаться</button>
         `;
         marketList.appendChild(itemDiv);
@@ -210,7 +210,7 @@ function setupImageRotation(imageContainer) {
         if (!isDragging) return;
 
         const deltaX = e.touches[0].clientX - previousX;
-        const deltaY = e.touches[0].clientY - previousY;
+        const deltaY = e.clientY - previousY;
 
         rotationY += deltaX * 0.4;
         rotationX -= deltaY * 0.4;
@@ -222,7 +222,7 @@ function setupImageRotation(imageContainer) {
 
         image.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
 
-        previousX = e.touches[0].clientX;
+        previousX = e.clientX;
         previousY = e.clientY;
         e.preventDefault(); // Предотвращаем прокрутку страницы во время перетаскивания касанием
     });
@@ -265,9 +265,8 @@ document.getElementById("add-item-form").addEventListener("submit", (e) => {
     reader.onload = function(event) {
         let imageData = event.target.result;
 
-        let items = JSON.parse(localStorage.getItem("marketItems")) || [];
-        let newItem = {
-            id: Date.now(),
+        // --- ВАЖНОЕ ИЗМЕНЕНИЕ: отправляем sellerUsername ---
+        const newItemData = {
             name,
             description,
             price,
@@ -275,15 +274,31 @@ document.getElementById("add-item-form").addEventListener("submit", (e) => {
             saleEndTime: saleEndTime,
             image: imageData,
             category,
-            sellerUsername: currentPlayerUsername
+            sellerUsername: currentPlayerUsername // Отправляем имя продавца
         };
-        items.push(newItem);
-        localStorage.setItem("marketItems", JSON.stringify(items));
 
-        loadMarketItems();
-        e.target.reset();
-        closeModal('add-item-modal');
-        alert("Товар успешно выставлен на продажу!");
+        fetch('/.netlify/functions/add-market-item', { // Endpoint добавления товара на сервер (нужно создать на сервере)
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newItemData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadMarketItems();
+                e.target.reset();
+                closeModal('add-item-modal');
+                alert(data.message);
+            } else {
+                alert(`Ошибка добавления товара: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при добавлении товара:', error);
+            alert('Не удалось добавить товар. Попробуйте позже.');
+        });
     };
     reader.readAsDataURL(imageInput);
 });
@@ -650,4 +665,32 @@ function updateAuctionTimer(timerElement, auctionId) {
             timerElement.textContent = `${hours}:${minutes}:${seconds}`;
         }
     }, 1000);
+}
+
+function buyItem(itemId) {
+    let playerData = JSON.parse(localStorage.getItem("playerData")) || { username: currentPlayerUsername }; // Получаем имя покупателя
+
+    fetch('/.netlify/functions/buy-item', { // 👈 ИЗМЕНЕННЫЙ URL: Путь к Netlify Function
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // 👈 Убедитесь, что Content-Type: application/json
+        },
+        body: JSON.stringify({ itemId: itemId, buyerUsername: playerData.username }) // 👈 Отправляем JSON тело запроса
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Успешная покупка
+            updatePlayerInfo(); // Обновляем информацию об игроке (баланс) на клиенте
+            loadMarketItems(); // Перезагружаем список товаров (чтобы убрать купленный товар)
+            alert(data.message); // Показываем сообщение об успехе
+        } else {
+            // Ошибка при покупке
+            alert(`Ошибка покупки: ${data.error}`); // Показываем сообщение об ошибке с сервера
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка при отправке запроса на покупку:', error);
+        alert('Не удалось совершить покупку. Попробуйте позже.');
+    });
 }
