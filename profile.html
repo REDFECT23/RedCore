@@ -3,32 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль игрока</title>
-    <link rel="stylesheet" href="css/market.css"> <!-- Подключаем стили маркетплейса для единообразия -->
-    <link rel="stylesheet" href="css/profile.css"> <!-- Подключаем стили профиля -->
+    <title>Профиль - RedCore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/market.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
-    <h1>Профиль игрока</h1>
 
-    <div id="profile-container">
-        <div id="player-info">
-            <p>Имя игрока: <span id="username"></span></p>
-            <p>Баланс: <span id="bits"></span> битов</p>
-            <p>Уровень: <span id="level"></span></p>
-            <p>Опыт: <span id="xp"></span></p>
-        </div>
+<header>
+    Профиль игрока
+</header>
 
-        <h2>Редактировать профиль</h2>
-        <form id="edit-profile-form">
-            <div class="form-group">
-                <label for="edit-username">Сменить имя:</label>
-                <input type="text" id="edit-username" placeholder="Новое имя">
-            </div>
-            <!-- В будущем можно добавить поля для изменения аватара, фона и т.д. -->
-            <button type="submit">Сохранить изменения</button>
-        </form>
+<div class="settings-container profile-page"> <!-- Используем settings-container для общего стиля, profile-page для специфичных -->
+    <div class="profile-header">
+        <h2>Информация профиля</h2>
     </div>
 
-    <script src="js/profile.js"></script>
+    <div id="player-info-card" class="card profile-info-card">
+        <h3><i class="fas fa-user"></i> Основная информация</h3>
+        <p><strong>Имя игрока:</strong> <span id="username"></span></p>
+        <p><strong>Баланс:</strong> <span id="bits"></span> битов</p>
+        <p><strong>Уровень:</strong> <span id="level"></span></p>
+        <p><strong>Опыт:</strong> <span id="xp"></span></p>
+    </div>
+
+    <div id="edit-profile-card" class="card edit-profile-card">
+        <h3><i class="fas fa-edit"></i> Редактировать профиль</h3>
+        <form id="edit-profile-form">
+            <div class="form-group">
+                <label for="edit-username" class="neon-label">Сменить имя:</label>
+                <input type="text" id="edit-username" class="neon-input" placeholder="Новое имя">
+            </div>
+            <!-- В будущем можно добавить поля для изменения аватара, фона и т.д. -->
+            <button type="submit" class="btn"><span>Сохранить изменения</span></button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    © 2025 RedCore. Все права защищены.
+</footer>
+
+<script src="js/profile.js"></script>
+<script src="js/fontawesome.js"></script> <!-- Подключаем Font Awesome для иконок -->
 </body>
 </html>
