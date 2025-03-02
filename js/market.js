@@ -71,9 +71,9 @@ function loadOfficialItems() {
 }
 
 function loadMarketItems(category = "all") {
-    fetch('/.netlify/functions/get-market-items') // 👈 Запрос к Netlify Function для получения товаров
-        .then(response => response.json())
-        .then(items => {
+    let items = JSON.parse(localStorage.getItem("marketItems")) || [];
+    // Фильтрация и отображение товаров
+}
             let marketList = document.getElementById("market-list");
             marketList.innerHTML = "";
 
