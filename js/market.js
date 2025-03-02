@@ -317,8 +317,7 @@ function addToCart(itemId) {
     let items = JSON.parse(localStorage.getItem("marketItems")) || [];
     let itemToAdd = items.find(item => item.id === itemId);
     if (itemToAdd) {
-        const priceToUse = itemToAdd.salePrice !== null && Date.now() < new Date(itemToAdd.saleEndTime).getTime() ? itemToAdd.salePrice : itemToAdd.price;
-        cart.push({ ...itemToAdd, type: 'player', currentPrice: priceToUse }); // Сохраняем текущую цену в корзине
+        cart.push(itemToAdd);
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartItemCount();
         alert(`"${itemToAdd.name}" добавлен в корзину!`);
