@@ -264,13 +264,12 @@ document.getElementById("add-item-form").addEventListener("submit", (e) => {
         saleEndTime = new Date(Date.now() + saleDuration * 3600000).toISOString(); // Время окончания распродажи
     }
 
-
     let reader = new FileReader();
     reader.onload = function(event) {
         let imageData = event.target.result;
 
-        // --- ВАЖНОЕ ИЗМЕНЕНИЕ: отправляем sellerUsername ---
         const newItemData = {
+            id: Date.now(),
             name,
             description,
             price,
@@ -281,28 +280,13 @@ document.getElementById("add-item-form").addEventListener("submit", (e) => {
             sellerUsername: currentPlayerUsername // Отправляем имя продавца
         };
 
-        fetch('/.netlify/functions/add-market-item', { // Endpoint добавления товара на сервер (нужно создать на сервере)
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newItemData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                loadMarketItems();
-                e.target.reset();
-                closeModal('add-item-modal');
-                alert(data.message);
-            } else {
-                alert(`Ошибка добавления товара: ${data.error}`);
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка при добавлении товара:', error);
-            alert('Не удалось добавить товар. Попробуйте позже.');
-        });
+        let items = JSON.parse(localStorage.getItem("marketItems")) || [];
+        items.push(newItemData);
+        localStorage.setItem("marketItems", JSON.stringify(items));
+        loadMarketItems();
+        e.target.reset();
+        closeModal('add-item-modal');
+        alert("Товар успешно добавлен!");
     };
     reader.readAsDataURL(imageInput);
 });
