@@ -1,0 +1,46 @@
+.clicker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#score {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ff3366;
+    text-shadow: 0 0 10px #ff3366;
+    transition: transform 0.2s;
+}
+
+#clicker-btn {
+    background: linear-gradient(45deg, #ff0044, #ff3366);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    transition: transform 0.1s, background 0.3s;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#clicker-btn:active {
+    transform: scale(1.1);
+}
+
+.particle {
+    position: absolute;
+    font-size: 1.5em;
+    color: #ff3366;
+    opacity: 1;
+    animation: particleAnim 1s ease-out forwards;
+}
+
+@keyframes particleAnim {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+}
