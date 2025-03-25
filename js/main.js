@@ -29,7 +29,7 @@ function applyCustomizations() {
     document.documentElement.style.setProperty('--text-color', textColor);
     document.documentElement.style.setProperty('--background-color', backgroundColor);
 
-    if (fontFamily === "CustomFont" && customFontPath) {
+    if (customFontPath) { // Проверяем, указан ли путь к шрифту
       let style = document.getElementById('custom-font-style');
       if (!style) {
           style = document.createElement('style');
@@ -37,7 +37,7 @@ function applyCustomizations() {
           document.head.appendChild(style);
       }
       style.textContent = `@font-face { font-family: CustomFont; src: url(${customFontPath}); }`;
-      document.documentElement.style.setProperty('--font-family', "CustomFont, Orbitron, sans-serif");
+      document.documentElement.style.setProperty('--font-family', "CustomFont, sans-serif"); // Используем CustomFont
       console.log("Пытаюсь применить кастомный шрифт:", customFontPath);
 
     } else {
@@ -207,6 +207,7 @@ if (header) { // Проверяем наличие заголовка
     });
 }
 
+
 // Функция для создания мини-кликеров (обновленная)
 function createMiniClickers() {
     const cardsContainer = document.querySelector('.cards'); // Получаем контейнер с карточками
@@ -231,6 +232,7 @@ function createMiniClickers() {
             transition: transform 0.2s ease-in-out;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             position: absolute; /* Абсолютное позиционирование внутри карточки */
+            z-index: 10; /* Чтобы кликеры были над содержимым карточки */
         `;
 
         if (body.classList.contains('light-theme')) {
@@ -268,22 +270,17 @@ function createMiniClickers() {
         const randomCard = cardsContainer.children[Math.floor(Math.random() * cardsContainer.children.length)];
         if (randomCard) {
             //Позицианируем
-             clickerButton.style.left = `${Math.random() * (randomCard.offsetWidth - 40)}px`;  //Случайное смещение
-             clickerButton.style.top = `${Math.random() * (randomCard.offsetHeight - 20)}px`;
+             clickerButton.style.left = `${Math.random() * (randomCard.offsetWidth - 40)}px`;  //Случайное смещение, вычитаем ширину кнопки
+             clickerButton.style.top = `${Math.random() * (randomCard.offsetHeight - 20)}px`; //Случайное смещение, вычитаем высоту кнопки
 
             randomCard.appendChild(clickerButton);
         }
     }
-
-    // Удаляем старый контейнер, если он был
-    const oldClickerContainer = document.querySelector('.clicker-container');
-    if (oldClickerContainer) {
-        oldClickerContainer.remove();
-    }
 }
 
-// Создаем мини-кликеры
-createMiniClickers();
-
-// Применяем настройки при загрузке страницы
-applyCustomizations();
+// Вызываем функцию createMiniClickers ПОСЛЕ того, как DOM полностью загружен
+document.addEventListener('DOMContentLoaded', () => {
+  createMiniClickers();
+    // Применяем настройки при загрузке страницы
+    applyCustomizations();
+});
