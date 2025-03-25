@@ -278,9 +278,31 @@ function createMiniClickers() {
     }
 }
 
-// Вызываем функцию createMiniClickers ПОСЛЕ того, как DOM полностью загружен
+// main.js (часть, относящаяся к шрифтам)
+
+function applyGlobalFont(fontPath) {
+  let style = document.getElementById('global-font-style');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'global-font-style';
+    document.head.appendChild(style);
+  }
+  style.textContent = `
+    @font-face {
+      font-family: 'GlobalCustomFont';
+      src: url(${fontPath});
+    }
+    * {
+      font-family: 'GlobalCustomFont', sans-serif !important;
+    }
+  `;
+}
+
+// Вызываем applyGlobalFont при загрузке страницы, передавая путь к файлу шрифта
 document.addEventListener('DOMContentLoaded', () => {
-  createMiniClickers();
-    // Применяем настройки при загрузке страницы
-    applyCustomizations();
+   //Здесь указываешь путь к файлу
+  applyGlobalFont('RedCore/assets/avantgardebkbtrusbyme_demi.otf'); // Замените на ваш путь! Поддерживаемые форматы: .woff2, .woff, .ttf, .otf
+  createMiniClickers(); // вызываем после смены шрифта
+  applyCustomizations();
+
 });
