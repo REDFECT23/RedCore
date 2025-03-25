@@ -617,3 +617,158 @@ i {
     margin-right: 8px;
     font-size: 1.4rem;
   }
+
+/* main.css (дополнения) */
+
+/* Дополнительные украшения*/
+
+/* Неоновые тени для карточек */
+.card {
+  position: relative; /* Для позиционирования псевдоэлементов */
+}
+.card::before, .card::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: inherit;
+  z-index: -1; /* Под карточкой */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Плавное появление */
+  opacity: 0;  /* Изначально скрыты */
+}
+
+.card::before {
+    background: linear-gradient(45deg, #ff0080, #ffcc00, #ff0080); /* Неоновый градиент */
+    background-size: 200% 200%;
+    animation: neonGlow 5s linear infinite;
+}
+
+.card::after {
+  filter: blur(15px); /* Размытие для эффекта свечения */
+  background: inherit; /* Наследуем фон */
+}
+
+.card:hover::before, .card:hover::after {
+  opacity: 1; /* Показываем при наведении */
+}
+
+@keyframes neonGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Стили для секции "О проекте" (можно добавить уникальные стили) */
+#about {
+    position: relative; /*Для внутреннего позиционирования*/
+    overflow: hidden; /* Скрываем выходящие за границы элементы */
+
+}
+
+/*Добавлено: Дополнительные стили к секции #about*/
+#about::before{ /* Псевдоэлемент для создания фона */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M0 0h20v20H0V0zm10 17.07L17.07 10 10 2.93 2.93 10 10 17.07zM10 8.54L5.76 4.3l4.24-4.23 4.23 4.23-4.23 4.24v8.49H5.76v-8.49z'/%3E%3C/g%3E%3C/svg%3E"); /* Паттерн (замените на свой)*/
+    opacity: 0.1; /* Прозрачность */
+    z-index: -1; /* Под текстом */
+     pointer-events: none;
+}
+
+/* Добавлено: Стили для параллакс-эффекта (пример) */
+.parallax-container {
+    position: relative;
+    overflow: hidden;
+    height: 300px; /* Высота контейнера */
+    margin-bottom: 30px; /* Отступ снизу */
+}
+
+.parallax-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%; /* Высота фона в два раза больше */
+    background-image: url('path/to/your/image.jpg'); /* Замените на URL вашего изображения */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+
+/* Стили для анимации "typing" */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ffcc00; }
+}
+
+.typing-effect {
+    overflow: hidden;
+    border-right: .15em solid #ffcc00; /* Курсор */
+    white-space: nowrap; /* Текст не переносится */
+    margin: 0 auto; /* Центрируем */
+    letter-spacing: .15em; /* Интервал между буквами */
+    animation:
+            typing 3.5s steps(40, end),  /* Анимация печати */
+            blink-caret .75s step-end infinite;  /* Анимация курсора */
+}
+
+/*Добавлено: применение класса typing-effect*/
+.welcome-text {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+/*    animation: pulse 2s infinite alternate; убрал, так как конфликтует */
+/*    animation: scaleUp 2s ease-in-out infinite alternate;  убрал*/
+    animation: typing 4s steps(60, end) forwards, blink-caret .75s step-end infinite; /*Добавил анимацию печати*/
+
+}
+
+/*Добавлено: анимация появления кнопок (пример)*/
+.btn {
+     animation: bounceIn 0.8s ease-out; /* Добавляем анимацию */
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
