@@ -167,11 +167,7 @@ header {
     background-size: 400% 400%; /* Для плавного перехода */
 }
 
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+
 
 /* Адаптивные стили для хедера (мобильные устройства) */
 @media (max-width: 768px) {  /* Или другое значение ширины */
@@ -195,16 +191,12 @@ header h1 {
     background-clip: text; /* Градиент только для текста */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; /* Альтернатива color: transparent для лучшей читаемости */
-    color: transparent; /* Делаем текст прозрачным */
-    background-image: linear-gradient(45deg, #ff0080, #ffcc00);
     /* Разноцветный текст (пример) */
     background-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: text; /* Обрезаем фон по тексту */
-    -webkit-background-clip: text; /* Для совместимости с Safari */
-    color: transparent;
+     /* Обрезаем фон по тексту */
 
 }
-}
+
 
 
 /* Анимация вращения */
@@ -374,6 +366,7 @@ section.fade-in {
     box-shadow: 0 0 15px #ffcc00;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     width: 350px;
+     position: relative; /* Для позиционирования псевдоэлементов */
 }
 
 body.light-theme .card {
@@ -422,6 +415,7 @@ body.light-theme .card:hover {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    animation: bounceIn 0.8s ease-out; /* Добавляем анимацию */
 }
 
 .btn::before {
@@ -562,12 +556,14 @@ body {
 
 /*Текст-приветствие*/
 .welcome-text {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
-    animation: pulse 2s infinite alternate;
-    animation: scaleUp 2s ease-in-out infinite alternate;
+/*    animation: pulse 2s infinite alternate; убрал, так как конфликтует */
+/*    animation: scaleUp 2s ease-in-out infinite alternate;  убрал*/
+    animation: typing 4s steps(60, end) forwards, blink-caret .75s step-end infinite; /*Добавил анимацию печати*/
 }
+
 
 @keyframes pulse {
     0% {
@@ -618,14 +614,10 @@ i {
     font-size: 1.4rem;
   }
 
-/* main.css (дополнения) */
-
-/* Дополнительные украшения*/
+/* Дополнительные украшения (разместить в конце файла) */
 
 /* Неоновые тени для карточек */
-.card {
-  position: relative; /* Для позиционирования псевдоэлементов */
-}
+
 .card::before, .card::after {
   content: '';
   position: absolute;
@@ -724,21 +716,8 @@ i {
             blink-caret .75s step-end infinite;  /* Анимация курсора */
 }
 
-/*Добавлено: применение класса typing-effect*/
-.welcome-text {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-/*    animation: pulse 2s infinite alternate; убрал, так как конфликтует */
-/*    animation: scaleUp 2s ease-in-out infinite alternate;  убрал*/
-    animation: typing 4s steps(60, end) forwards, blink-caret .75s step-end infinite; /*Добавил анимацию печати*/
-
-}
-
 /*Добавлено: анимация появления кнопок (пример)*/
-.btn {
-     animation: bounceIn 0.8s ease-out; /* Добавляем анимацию */
-}
+
 
 @keyframes bounceIn {
   from, 20%, 40%, 60%, 80%, to {
