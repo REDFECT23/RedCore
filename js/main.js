@@ -1,14 +1,15 @@
 /* main.js */
-//Проверка наличия имени пользователя
+
+// Проверка наличия имени пользователя
 if (!localStorage.getItem('username')) {
-  window.location.href = 'login.html';  // Исправлен путь
+    window.location.href = 'login.html';  // Исправлен путь
 }
 
 // Получаем тему из localStorage и применяем её
 const body = document.body;
 const theme = localStorage.getItem('theme');
 if (theme) {
-  body.className = theme;
+    body.className = theme;
 }
 
 // Применяем пользовательские настройки
@@ -27,14 +28,24 @@ function applyCustomizations() {
     // Устанавливаем переменные CSS
     document.documentElement.style.setProperty('--text-color', textColor);
     document.documentElement.style.setProperty('--background-color', backgroundColor);
+
     if (fontFamily === "CustomFont" && customFontPath) {
-        document.documentElement.style.setProperty('--font-family', "CustomFont, Orbitron, sans-serif");
-        document.documentElement.style.setProperty('--custom-font-path', `url(${customFontPath})`);
-        console.log("Пытаюсь применить кастомный шрифт:", customFontPath);
+      let style = document.getElementById('custom-font-style');
+      if (!style) {
+          style = document.createElement('style');
+          style.id = 'custom-font-style';
+          document.head.appendChild(style);
+      }
+      style.textContent = `@font-face { font-family: CustomFont; src: url(${customFontPath}); }`;
+      document.documentElement.style.setProperty('--font-family', "CustomFont, Orbitron, sans-serif");
+      console.log("Пытаюсь применить кастомный шрифт:", customFontPath);
+
     } else {
         document.documentElement.style.setProperty('--font-family', fontFamily);
         console.log("Стандартный шрифт:", fontFamily);
     }
+
+
     document.documentElement.style.setProperty('--font-size', fontSize);
     document.documentElement.style.setProperty('--particle-size', particleSize);
 
@@ -51,14 +62,18 @@ function applyCustomizations() {
 
     //Частицы (необходимо пересоздать контейнер)
     const particlesContainer = document.querySelector('.particles-container');
-    particlesContainer.innerHTML = ''; // Очистить контейнер
-    generateParticles(particleCount); // Сгенерировать частицы с новым количеством
+    if (particlesContainer) { // Проверяем наличие контейнера
+      particlesContainer.innerHTML = ''; // Очистить контейнер
+      generateParticles(particleCount); // Сгенерировать частицы с новым количеством
+    }
 }
 
 
 //Функция для создания частиц (перемещена в main.js)
 function generateParticles(numParticles) {
     const particlesContainer = document.querySelector('.particles-container');
+      if (!particlesContainer) return; // Если нет контейнера, выходим
+
     const particleSize = localStorage.getItem('particleSize') || '8px';
 
     for (let i = 0; i < numParticles; i++) {
@@ -84,102 +99,114 @@ function generateParticles(numParticles) {
 // Назначение переменной --card-index для каждой карточки
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
-card.style.setProperty('--card-index', index);
+    card.style.setProperty('--card-index', index);
 });
 
 
 // Генерация частиц
 const particlesContainer = document.querySelector('.particles-container');
-let numParticles = parseInt(localStorage.getItem('particleCount')) || 50;
-generateParticles(numParticles);
+if (particlesContainer) { // Проверяем наличие контейнера
+    let numParticles = parseInt(localStorage.getItem('particleCount')) || 50;
+    generateParticles(numParticles);
+}
+
 
 
 // Intersection Observer для секций
 const sections = document.querySelectorAll('section');
 const sectionObserver = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('fade-in');
-sectionObserver.unobserve(entry.target);
-}
-});
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+            sectionObserver.unobserve(entry.target);
+        }
+    });
 }, {
-threshold: 0.2 // Начать анимацию, когда 20% секции видно
+    threshold: 0.2 // Начать анимацию, когда 20% секции видно
 });
 
 sections.forEach(section => {
-sectionObserver.observe(section);
+    sectionObserver.observe(section);
 });
 
 
- // Intersection Observer для карточек
+// Intersection Observer для карточек
 const cardObserver = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('show');
-cardObserver.unobserve(entry.target); // Прекращаем наблюдение после показа
-}
-});
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            cardObserver.unobserve(entry.target); // Прекращаем наблюдение после показа
+        }
+    });
 }, {
-threshold: 0.2 // Порог видимости (20% элемента должно быть видно)
+    threshold: 0.2 // Порог видимости (20% элемента должно быть видно)
 });
 
-cards.forEach(card => {
-cardObserver.observe(card);
-});
+if(cards.length > 0){ // Проверяем наличие карточек
+  cards.forEach(card => {
+    cardObserver.observe(card);
+  });
+}
+
 
 // Код для 3D вращения заголовка
 const header = document.getElementById('mainHeader');  // Получаем заголовок по id
-let isDragging = false;
-let previousX = 0;
-let rotationY = 0;
+if (header) { // Проверяем наличие заголовка
+    let isDragging = false;
+    let previousX = 0;
+    let rotationY = 0;
 
-header.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    previousX = e.clientX;
-});
+    header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        previousX = e.clientX;
+    });
 
-header.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    header.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
 
-    const deltaX = e.clientX - previousX;
-    rotationY += deltaX * 0.2; // Скорость вращения
+        const deltaX = e.clientX - previousX;
+        rotationY += deltaX * 0.2; // Скорость вращения
 
-    header.querySelector('h1').style.transform = `rotateY(${rotationY}deg)`; // Вращаем h1 внутри header
+        const h1 = header.querySelector('h1');
+        if (h1) { // Проверяем наличие h1 внутри header
+            h1.style.transform = `rotateY(${rotationY}deg)`; // Вращаем h1 внутри header
+        }
+        previousX = e.clientX;
+    });
 
-    previousX = e.clientX;
-});
+    header.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
 
+    header.addEventListener('mouseleave', () => {
+        isDragging = false;
+    });
 
-header.addEventListener('mouseup', () => {
-    isDragging = false;
-});
+    // Для тач-устройств
+    header.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        previousX = e.touches[0].clientX;
+    });
 
-header.addEventListener('mouseleave', () => {
-    isDragging = false;
-});
+    header.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
 
+        const deltaX = e.touches[0].clientX - previousX;
+        rotationY += deltaX * 0.2; // Скорость вращения
+         const h1 = header.querySelector('h1');
+        if (h1) { // Проверяем наличие h1
+          h1.style.transform = `rotateY(${rotationY}deg)`;
+        }
 
-// Для тач-устройств
-header.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    previousX = e.touches[0].clientX;
-});
+        previousX = e.touches[0].clientX;
+        e.preventDefault(); // Предотвращаем прокрутку страницы
+    });
 
-header.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
+    header.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+}
 
-    const deltaX = e.touches[0].clientX - previousX;
-    rotationY += deltaX * 0.2; // Скорость вращения
-    header.querySelector('h1').style.transform = `rotateY(${rotationY}deg)`;
-
-    previousX = e.touches[0].clientX;
-    e.preventDefault(); // Предотвращаем прокрутку страницы
-});
-
-header.addEventListener('touchend', () => {
-    isDragging = false;
-});
 
 // Функция для создания мини-кликеров
 function createMiniClickers() {
@@ -217,32 +244,12 @@ function createMiniClickers() {
             font-size: 0.9rem;
             transition: transform 0.2s ease-in-out;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            
-             /* Стили для контейнера с эффектом параллакса */
-            .parallax-container {
-                position: relative;
-                overflow: hidden;
-                height: 300px; /* Высота контейнера */
-                margin-bottom: 30px; /* Отступ снизу */
-            }
-
-            .parallax-background {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 200%; /* Высота фона в два раза больше */
-                background-image: url('path/to/your/image.jpg'); /* Замените на URL вашего изображения */
-                background-size: cover;
-                background-position: center;
-                z-index: -1;
-             }
-`;
+        `;
          // Добавлено:
-         body.light-theme .clicker-button {
-             background-color: rgba(255, 180, 66, 0.8);
-             color: #333;
-         }
+        if (body.classList.contains('light-theme')) {  // Исправлено: используем classList.contains
+             clickerButton.style.backgroundColor = 'rgba(255, 180, 66, 0.8)';
+             clickerButton.style.color = '#333';
+        }
 
         clickerButton.addEventListener('click', () => {
             clickerButton.dataset.count++;
@@ -270,7 +277,10 @@ function createMiniClickers() {
 
 
               //Добавлено: Определение keyframes для анимации взрыва
-              let style = document.createElement('style');
+              let style = document.getElementById('explode-keyframes'); // Проверяем, есть ли уже такие keyframes
+              if (!style) { // Если нет, создаем
+                style = document.createElement('style');
+                style.id = 'explode-keyframes';
                 style.innerHTML = `
                   @keyframes explode {
                       0% {
@@ -284,6 +294,7 @@ function createMiniClickers() {
                   }
                 `;
                 document.head.appendChild(style);
+              }
 
                setTimeout(() => explosion.remove(), 300); // Удаляем элемент после анимации
 
@@ -294,8 +305,8 @@ function createMiniClickers() {
     document.body.appendChild(clickerContainer);
 }
 
-
 // Создаем мини-кликеры
 createMiniClickers();
 
+// Применяем настройки при загрузке страницы
 applyCustomizations();
