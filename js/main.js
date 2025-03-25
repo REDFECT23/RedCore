@@ -181,10 +181,6 @@ header.addEventListener('touchend', () => {
     isDragging = false;
 });
 
-
-// Применяем настройки при загрузке страницы
-applyCustomizations();
-
 // Функция для создания мини-кликеров
 function createMiniClickers() {
     const clickerContainer = document.createElement('div');
