@@ -2,7 +2,7 @@
 
 // Проверка наличия имени пользователя
 if (!localStorage.getItem('username')) {
-    window.location.href = 'login.html';  // Исправлен путь
+    window.location.href = 'login.html';
 }
 
 // Получаем тему из localStorage и применяем её
@@ -29,6 +29,8 @@ function applyCustomizations() {
     document.documentElement.style.setProperty('--text-color', textColor);
     document.documentElement.style.setProperty('--background-color', backgroundColor);
 
+    //  Шрифты (устаревший код, заменен на applyGlobalFont)
+    /*
     if (customFontPath) { // Проверяем, указан ли путь к шрифту
       let style = document.getElementById('custom-font-style');
       if (!style) {
@@ -44,6 +46,7 @@ function applyCustomizations() {
         document.documentElement.style.setProperty('--font-family', fontFamily);
         console.log("Стандартный шрифт:", fontFamily);
     }
+    */
 
 
     document.documentElement.style.setProperty('--font-size', fontSize);
@@ -69,7 +72,7 @@ function applyCustomizations() {
 }
 
 
-//Функция для создания частиц (перемещена в main.js)
+//Функция для создания частиц
 function generateParticles(numParticles) {
     const particlesContainer = document.querySelector('.particles-container');
       if (!particlesContainer) return; // Если нет контейнера, выходим
@@ -221,7 +224,7 @@ function createMiniClickers() {
         clickerButton.dataset.count = 0;
         clickerButton.innerHTML = `+1<span class="clicker-count">0</span>`;
 
-        // Стили для кнопки (можно оставить, как было, или немного изменить)
+        // Стили для кнопки
         clickerButton.style.cssText = `
             background-color: #ffcc00;
             border: none;
@@ -243,26 +246,84 @@ function createMiniClickers() {
         clickerButton.addEventListener('click', () => {
             clickerButton.dataset.count++;
             clickerButton.querySelector('.clicker-count').textContent = clickerButton.dataset.count;
-            clickerButton.style.transform = 'scale(1.1)';
-            setTimeout(() => clickerButton.style.transform = 'scale(1)', 150);
 
+            // Увеличение и небольшое вращение
+            clickerButton.style.transform = 'scale(1.2) rotate(7deg)';
+            setTimeout(() => {
+                clickerButton.style.transform = 'scale(1) rotate(0)';
+            }, 150);
+
+            // Изменение цвета (более динамичное)
+            const originalColor = clickerButton.style.backgroundColor;
+            clickerButton.style.backgroundColor = 'hsl(' + (Math.random() * 360) + ', 100%, 50%)'; // Случайный цвет
+            setTimeout(() => {
+                clickerButton.style.backgroundColor = originalColor;
+            }, 200);
+
+            // Эффект "взрыва" (улучшенный)
             const explosion = document.createElement('div');
             explosion.classList.add('click-explosion');
             clickerButton.appendChild(explosion);
 
             explosion.style.cssText = `
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, 0.5);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0); /* Начинаем с центра */
+                width: 10px; /* Начальный размер */
+                height: 10px;/* Начальный размер */
+                background-color: rgba(255, 255, 255, 0.8);
                 border-radius: 50%;
                 pointer-events: none;
-                animation: explode 0.3s ease-out forwards;
+                animation: explode 0.4s ease-out forwards;
             `;
 
-            setTimeout(() => explosion.remove(), 300);
+             // Добавим больше частиц
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('click-particle');
+                clickerButton.appendChild(particle);
+
+                particle.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: ${Math.random() * 8 + 2}px; /* Случайный размер */
+                    height: ${Math.random() * 8 + 2}px; /* Случайный размер */
+                    background-color: hsl(${Math.random() * 360}, 100%, 50%); /* Случайный цвет */
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: flyOut ${Math.random() * 0.6 + 0.4}s ease-out forwards; /* Случайная скорость */
+                `;
+
+                  //  Keyframes для анимации разлета частиц
+                let style = document.getElementById('flyOut-keyframes');
+                if(!style) {
+                    style = document.createElement('style');
+                    style.id = 'flyOut-keyframes'
+                    style.innerHTML = `
+                        @keyframes flyOut {
+                          from {
+                            transform: translate(-50%, -50%) scale(1);
+                            opacity: 1;
+                          }
+                          to {
+                            transform: translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px) scale(0); /* Разлет в случайном направлении */
+                            opacity: 0;
+                          }
+                        }
+                      `;
+                      document.head.appendChild(style);
+                }
+            }
+
+            setTimeout(() => {
+              explosion.remove();
+              //Удаляем все частички
+               clickerButton.querySelectorAll('.click-particle').forEach(p => p.remove());
+
+            }, 600); // Удаляем после анимации (должно совпадать с самым долгим временем анимации)
         });
 
 
@@ -278,8 +339,7 @@ function createMiniClickers() {
     }
 }
 
-// main.js (часть, относящаяся к шрифтам)
-
+// Функция для применения глобального шрифта
 function applyGlobalFont(fontPath) {
   let style = document.getElementById('global-font-style');
   if (!style) {
