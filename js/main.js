@@ -207,6 +207,81 @@ if (header) { // Проверяем наличие заголовка
     });
 }
 
+// Функция для создания мини-кликеров (обновленная)
+function createMiniClickers() {
+    const cardsContainer = document.querySelector('.cards'); // Получаем контейнер с карточками
+    if (!cardsContainer) return; // Если нет контейнера, выходим
+
+    const numClickers = 5; // Количество кликеров
+
+    for (let i = 0; i < numClickers; i++) {
+        const clickerButton = document.createElement('button');
+        clickerButton.classList.add('clicker-button');
+        clickerButton.dataset.count = 0;
+        clickerButton.innerHTML = `+1<span class="clicker-count">0</span>`;
+
+        // Стили для кнопки (можно оставить, как было, или немного изменить)
+        clickerButton.style.cssText = `
+            background-color: #ffcc00;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: absolute; /* Абсолютное позиционирование внутри карточки */
+        `;
+
+        if (body.classList.contains('light-theme')) {
+            clickerButton.style.backgroundColor = 'rgba(255, 180, 66, 0.8)';
+            clickerButton.style.color = '#333';
+        }
+
+        clickerButton.addEventListener('click', () => {
+            clickerButton.dataset.count++;
+            clickerButton.querySelector('.clicker-count').textContent = clickerButton.dataset.count;
+            clickerButton.style.transform = 'scale(1.1)';
+            setTimeout(() => clickerButton.style.transform = 'scale(1)', 150);
+
+            const explosion = document.createElement('div');
+            explosion.classList.add('click-explosion');
+            clickerButton.appendChild(explosion);
+
+            explosion.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: explode 0.3s ease-out forwards;
+            `;
+
+            setTimeout(() => explosion.remove(), 300);
+        });
+
+
+        // Добавляем кнопку в случайную карточку
+        const randomCard = cardsContainer.children[Math.floor(Math.random() * cardsContainer.children.length)];
+        if (randomCard) {
+            //Позицианируем
+             clickerButton.style.left = `${Math.random() * (randomCard.offsetWidth - 40)}px`;  //Случайное смещение
+             clickerButton.style.top = `${Math.random() * (randomCard.offsetHeight - 20)}px`;
+
+            randomCard.appendChild(clickerButton);
+        }
+    }
+
+    // Удаляем старый контейнер, если он был
+    const oldClickerContainer = document.querySelector('.clicker-container');
+    if (oldClickerContainer) {
+        oldClickerContainer.remove();
+    }
+}
+
 // Создаем мини-кликеры
 createMiniClickers();
 
